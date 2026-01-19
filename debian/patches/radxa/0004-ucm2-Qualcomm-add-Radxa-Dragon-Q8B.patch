@@ -1,0 +1,210 @@
+From 6fa61b41aab16d61941a4092b0ec984a5c8bd06b Mon Sep 17 00:00:00 2001
+From: Xilin Wu <sophon@radxa.com>
+Date: Mon, 12 Jan 2026 22:17:36 +0800
+Subject: [PATCH] ucm2: Qualcomm: add Radxa Dragon Q8B
+
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+
+diff --git a/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf b/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
+new file mode 100644
+index 0000000..d18ee55
+--- /dev/null
++++ b/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
+@@ -0,0 +1,144 @@
++SectionVerb {
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 1"
++		cset "name='MultiMedia2 Mixer TX_CODEC_DMA_TX_3' 1"
++	]
++
++	Value {
++		TQ "HiFi"
++	}
++}
++
++SectionDevice."HDMI0" {
++	Comment "Type-C/DisplayPort 0 playback"
++
++	ConflictingDevice [
++		"Headphones"
++		"HDMI1"
++		"HDMI2"
++	]
++
++	EnableSequence [
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},0"
++		JackControl "DP0 Jack"
++	}
++}
++
++SectionDevice."HDMI1" {
++	Comment "Type-C/DisplayPort 1 playback"
++
++	ConflictingDevice [
++		"Headphones"
++		"HDMI0"
++		"HDMI2"
++	]
++
++	EnableSequence [
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 1"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},0"
++		JackControl "DP1 Jack"
++	}
++}
++
++SectionDevice."HDMI2" {
++	Comment "HDMI playback"
++
++	ConflictingDevice [
++		"Headphones"
++		"HDMI0"
++		"HDMI1"
++	]
++
++	EnableSequence [
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 1"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},0"
++		JackControl "DP2 Jack"
++	}
++}
++
++SectionDevice."Headphones" {
++	Comment "Headphones playback"
++
++	ConflictingDevice [
++		"HDMI0"
++		"HDMI1"
++		"HDMI2"
++	]
++
++	Include.wcdhpe.File "/codecs/wcd938x/HeadphoneEnableSeq.conf"
++	Include.wcdhpd.File "/codecs/wcd938x/HeadphoneDisableSeq.conf"
++	Include.rxmhpe.File "/codecs/qcom-lpass/rx-macro/HeadphoneEnableSeq.conf"
++	Include.rxmhpd.File "/codecs/qcom-lpass/rx-macro/HeadphoneDisableSeq.conf"
++
++	EnableSequence [
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 1"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++	]
++
++	DisableSequence [
++		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
++	]
++
++	Value {
++		PlaybackPriority 200
++		PlaybackPCM "hw:${CardId},0"
++		PlaybackMixer "default:${CardId}"
++		PlaybackMixerElem "HP"
++		JackControl "Headphone Jack"
++	}
++}
++
++SectionDevice."Headset" {
++	Comment "Headset microphone"
++
++	Include.wcdmice.File "/codecs/wcd938x/HeadphoneMicEnableSeq.conf"
++	Include.wcdmicd.File "/codecs/wcd938x/HeadphoneMicDisableSeq.conf"
++	Include.txmhpe.File "/codecs/qcom-lpass/tx-macro/HeadphoneMicEnableSeq.conf"
++	Include.txmhpd.File "/codecs/qcom-lpass/tx-macro/HeadphoneMicDisableSeq.conf"
++
++	Value {
++		CapturePriority 100
++		CapturePCM "hw:${CardId},1"
++		CaptureMixerElem "ADC2"
++		JackControl "Mic Jack"
++	}
++}
+diff --git a/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
+new file mode 100644
+index 0000000..86d9db0
+--- /dev/null
++++ b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
+@@ -0,0 +1,17 @@
++Syntax 4
++
++SectionUseCase."HiFi" {
++	File "/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf"
++	Comment "HiFi quality Music."
++}
++
++BootSequence [
++	cset "name='HPHL Volume' 2"
++	cset "name='HPHR Volume' 2"
++	cset "name='ADC2 Volume' 10"
++]
++
++Include.card-init.File "/lib/card-init.conf"
++Include.ctl-remap.File "/lib/ctl-remap.conf"
++Include.wcd-init.File "/codecs/wcd938x/init.conf"
++Include.rxm-init.File "/codecs/qcom-lpass/rx-macro/init.conf"
+diff --git a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+index cb37c58..648618a 100644
+--- a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
++++ b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+@@ -1,5 +1,7 @@
+ Syntax 4
+ 
++Define.DMI_info "${sys:devices/virtual/dmi/id/board_vendor}-${sys:devices/virtual/dmi/id/product_family}-${sys:devices/virtual/dmi/id/board_name}"
++
+ If.LENOVOX13s {
+ 	Condition {
+ 		Type RegexMatch
+@@ -7,5 +9,13 @@ If.LENOVOX13s {
+ 		Regex "LENOVO.*ThinkPad X13s.*"
+ 	}
+ 	True.Include.x13s.File "/Qualcomm/sc8280xp/LENOVO-X13s.conf"
+-	False.Error "SC8280XP - ${sys:devices/virtual/dmi/id/board_vendor}-${sys:devices/virtual/dmi/id/product_family} model not supported"
++}
++
++If.RADXA_DRAGON_Q8B {
++	Condition {
++		Type RegexMatch
++		String "${var:DMI_info}"
++		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa Dragon Q8B$"
++	}
++	True.Include.radxaq8b.File "/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf"
+ }
+-- 
+2.34.1
+
