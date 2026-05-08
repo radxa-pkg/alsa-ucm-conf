@@ -5,11 +5,11 @@ Subject: [PATCH] ucm2: Qualcomm: add Radxa Dragon Q8B
 
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 
-diff --git a/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf b/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
 new file mode 100644
 index 0000000..d18ee55
 --- /dev/null
-+++ b/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
 @@ -0,0 +1,144 @@
 +SectionVerb {
 +	EnableSequence [
@@ -155,11 +155,11 @@ index 0000000..d18ee55
 +		JackControl "Mic Jack"
 +	}
 +}
-diff --git a/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
 new file mode 100644
 index 0000000..86d9db0
 --- /dev/null
-+++ b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
 @@ -0,0 +1,17 @@
 +Syntax 4
 +
@@ -178,10 +178,10 @@ index 0000000..86d9db0
 +Include.ctl-remap.File "/lib/ctl-remap.conf"
 +Include.wcd-init.File "/codecs/wcd938x/init.conf"
 +Include.rxm-init.File "/codecs/qcom-lpass/rx-macro/init.conf"
-diff --git a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+diff --git a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 index cb37c58..648618a 100644
---- a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
-+++ b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+--- a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 @@ -1,5 +1,7 @@
  Syntax 4
  
