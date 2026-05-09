@@ -1,0 +1,10 @@
+{
+  "*": {
+    "Releases": [
+      "qcs6490-noble-test",
+      "qcs6490-noble",
+      "qcs6490-resolute-test",
+      "qcs6490-resolute"
+    ]
+  }
+}
