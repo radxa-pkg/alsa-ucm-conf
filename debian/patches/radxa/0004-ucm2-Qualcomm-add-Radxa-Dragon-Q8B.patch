@@ -1,4 +1,4 @@
-From 6fa61b41aab16d61941a4092b0ec984a5c8bd06b Mon Sep 17 00:00:00 2001
+From 9099831219aea5d04bc8140e4afd47ceab5a2fd6 Mon Sep 17 00:00:00 2001
 From: Xilin Wu <sophon@radxa.com>
 Date: Mon, 12 Jan 2026 22:17:36 +0800
 Subject: [PATCH] ucm2: Qualcomm: add Radxa Dragon Q8B
@@ -7,17 +7,23 @@ Signed-off-by: Xilin Wu <sophon@radxa.com>
 
 diff --git a/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
 new file mode 100644
-index 0000000..d18ee55
+index 0000000..c0a3d15
 --- /dev/null
 +++ b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
-@@ -0,0 +1,144 @@
+@@ -0,0 +1,127 @@
 +SectionVerb {
 +	EnableSequence [
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
 +		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 1"
-+		cset "name='MultiMedia2 Mixer TX_CODEC_DMA_TX_3' 1"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia2' 1"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia3' 1"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia4' 1"
++		cset "name='MultiMedia5 Mixer TX_CODEC_DMA_TX_3' 1"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia2' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia3' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia4' 0"
 +	]
 +
 +	Value {
@@ -26,55 +32,51 @@ index 0000000..d18ee55
 +}
 +
 +SectionDevice."HDMI0" {
-+	Comment "Type-C/DisplayPort 0 playback"
++	Comment "Type-C / DisplayPort 0 playback"
 +
 +	ConflictingDevice [
-+		"Headphones"
 +		"HDMI1"
 +		"HDMI2"
 +	]
 +
 +	EnableSequence [
-+		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia2' 1"
 +	]
 +
 +	DisableSequence [
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		# Keep DP routes up while the HiFi verb is active. PipeWire opens
++		# the PCM before running the target device EnableSequence when
++		# switching between conflicting HDMI devices.
 +	]
 +
 +	Value {
 +		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},0"
++		PlaybackPCM "hw:${CardId},1"
 +		JackControl "DP0 Jack"
 +	}
 +}
 +
 +SectionDevice."HDMI1" {
-+	Comment "Type-C/DisplayPort 1 playback"
++	Comment "Type-C / DisplayPort 1 playback"
 +
 +	ConflictingDevice [
-+		"Headphones"
 +		"HDMI0"
 +		"HDMI2"
 +	]
 +
 +	EnableSequence [
-+		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 1"
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia3' 1"
 +	]
 +
 +	DisableSequence [
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
++		# Keep DP routes up while the HiFi verb is active. PipeWire opens
++		# the PCM before running the target device EnableSequence when
++		# switching between conflicting HDMI devices.
 +	]
 +
 +	Value {
 +		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},0"
++		PlaybackPCM "hw:${CardId},2"
 +		JackControl "DP1 Jack"
 +	}
 +}
@@ -83,25 +85,23 @@ index 0000000..d18ee55
 +	Comment "HDMI playback"
 +
 +	ConflictingDevice [
-+		"Headphones"
 +		"HDMI0"
 +		"HDMI1"
 +	]
 +
 +	EnableSequence [
-+		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 1"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia4' 1"
 +	]
 +
 +	DisableSequence [
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
++		# Keep DP routes up while the HiFi verb is active. PipeWire opens
++		# the PCM before running the target device EnableSequence when
++		# switching between conflicting HDMI devices.
 +	]
 +
 +	Value {
 +		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},0"
++		PlaybackPCM "hw:${CardId},3"
 +		JackControl "DP2 Jack"
 +	}
 +}
@@ -109,27 +109,10 @@ index 0000000..d18ee55
 +SectionDevice."Headphones" {
 +	Comment "Headphones playback"
 +
-+	ConflictingDevice [
-+		"HDMI0"
-+		"HDMI1"
-+		"HDMI2"
-+	]
-+
 +	Include.wcdhpe.File "/codecs/wcd938x/HeadphoneEnableSeq.conf"
 +	Include.wcdhpd.File "/codecs/wcd938x/HeadphoneDisableSeq.conf"
 +	Include.rxmhpe.File "/codecs/qcom-lpass/rx-macro/HeadphoneEnableSeq.conf"
 +	Include.rxmhpd.File "/codecs/qcom-lpass/rx-macro/HeadphoneDisableSeq.conf"
-+
-+	EnableSequence [
-+		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 1"
-+		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia1' 0"
-+		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia1' 0"
-+	]
-+
-+	DisableSequence [
-+		cset "name='RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 0"
-+	]
 +
 +	Value {
 +		PlaybackPriority 200
@@ -150,16 +133,16 @@ index 0000000..d18ee55
 +
 +	Value {
 +		CapturePriority 100
-+		CapturePCM "hw:${CardId},1"
++		CapturePCM "hw:${CardId},4"
 +		CaptureMixerElem "ADC2"
 +		JackControl "Mic Jack"
 +	}
 +}
-diff --git a/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
+diff --git a/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
 new file mode 100644
 index 0000000..86d9db0
 --- /dev/null
-+++ b/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
++++ b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
 @@ -0,0 +1,17 @@
 +Syntax 4
 +
@@ -178,10 +161,10 @@ index 0000000..86d9db0
 +Include.ctl-remap.File "/lib/ctl-remap.conf"
 +Include.wcd-init.File "/codecs/wcd938x/init.conf"
 +Include.rxm-init.File "/codecs/qcom-lpass/rx-macro/init.conf"
-diff --git a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+diff --git a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 index cb37c58..648618a 100644
---- a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
-+++ b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+--- a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
++++ b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 @@ -1,5 +1,7 @@
  Syntax 4
  
