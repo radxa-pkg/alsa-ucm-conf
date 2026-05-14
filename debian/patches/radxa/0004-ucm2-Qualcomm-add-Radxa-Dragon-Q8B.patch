@@ -138,7 +138,7 @@ index 0000000..c0a3d15
 +		JackControl "Mic Jack"
 +	}
 +}
-diff --git a/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf b/src/ucm2/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf
 new file mode 100644
 index 0000000..86d9db0
 --- /dev/null
@@ -161,7 +161,7 @@ index 0000000..86d9db0
 +Include.ctl-remap.File "/lib/ctl-remap.conf"
 +Include.wcd-init.File "/codecs/wcd938x/init.conf"
 +Include.rxm-init.File "/codecs/qcom-lpass/rx-macro/init.conf"
-diff --git a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+diff --git a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 index cb37c58..648618a 100644
 --- a/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
 +++ b/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
