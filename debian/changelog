@@ -1,3 +1,27 @@
+alsa-ucm-conf (1.2.14-1radxa3) noble; urgency=medium
+
+  [ ZHANG Yuntian ]
+  * fix: restore build
+  * fix: remove deprecated files
+  * fix: hook after dh_install
+  * fix: update patch to work with submodule
+  * Add new release entries to pkg.conf.template
+  * fix: executable-not-elf-or-script
+  * fix: correct patch file path
+  * fix: correct patch file path
+
+  [ Chongbiao Chen ]
+  * chore: add upstream alsa-ucm-conf to submodule
+  * chore: delete patchset
+  * fix: fix lintian error
+
+  [ Stephen Chen ]
+  * feat: Add Radxa Dragon Q8B support
+  * fix: Add dependency libasound2 for Debian12
+  * fix: fix Radxa Dragon Q8B audio
+
+ -- "Radxa Computer Co., Ltd" <dev@radxa.com>  Thu, 14 May 2026 08:27:03 +0000
+
 alsa-ucm-conf (1.2.14-1radxa2) noble; urgency=medium
 
   [ xzl ]
