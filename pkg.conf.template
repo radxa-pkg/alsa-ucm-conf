@@ -3,8 +3,16 @@
     "Releases": [
       "qcs6490-noble-test",
       "qcs6490-noble",
+      "sc8280xp-noble-test",
+      "sc8280xp-noble",
       "qcs6490-resolute-test",
-      "qcs6490-resolute"
+      "qcs6490-resolute",
+      "sc8280xp-resolute-test",
+      "sc8280xp-resolute",
+      "qcs6490-trixie-test",
+      "qcs6490-trixie",
+      "sc8280xp-trixie-test",
+      "sc8280xp-trixie"
     ]
   }
 }
