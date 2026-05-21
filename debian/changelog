@@ -1,8 +1,12 @@
-alsa-ucm-conf (1.2.15.3-radxa-1) UNRELEASED; urgency=medium
+alsa-ucm-conf (1.2.15.3-radxa-1) noble; urgency=medium
 
+  [ "Radxa Computer Co., Ltd" ]
   * update version
 
- -- "Radxa Computer Co., Ltd" <dev@radxa.com>  Mon, 18 May 2026 15:31:46 +0800
+  [ Jiali Chen ]
+  * feat: add Radxa-CM-Q64 support
+
+ -- "Radxa Computer Co., Ltd" <dev@radxa.com>  Thu, 21 May 2026 11:46:03 +0000
 
 alsa-ucm-conf (1.2.14-1radxa3) noble; urgency=medium
 
