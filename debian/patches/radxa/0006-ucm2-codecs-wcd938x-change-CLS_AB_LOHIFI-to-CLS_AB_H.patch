@@ -1,0 +1,30 @@
+From ebce1f02f61620ed9f087c6051dfde984e722d4a Mon Sep 17 00:00:00 2001
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 21 Jul 2026 16:53:48 +0800
+Subject: [PATCH] ucm2: codecs: wcd938x: change CLS_AB_LOHIFI to CLS_AB_HIFI
+ and enable HD2 Mode Switch
+
+CLS_AB_HIFI is supposed to be able to provide more output headroom/drive
+capability. HD2 (second-harmonic-distortion compensation) corrects the
+RDAC to cut even-order harmonics.
+
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ ucm2/codecs/wcd938x/HeadphoneABEnableSeq.conf | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/ucm2/codecs/wcd938x/HeadphoneABEnableSeq.conf b/src/ucm2/codecs/wcd938x/HeadphoneABEnableSeq.conf
+index 79fb480..f62938e 100644
+--- a/src/ucm2/codecs/wcd938x/HeadphoneABEnableSeq.conf
++++ b/src/ucm2/codecs/wcd938x/HeadphoneABEnableSeq.conf
+@@ -9,5 +9,6 @@ EnableSequence [
+ 	cset "name='HPHL_COMP Switch' 0"
+ 	cset "name='CLSH Switch' 1"
+ 	cset "name='LO Switch' 1"
+-	cset "name='RX HPH Mode' CLS_AB_LOHIFI"
++	cset "name='RX_HPH HD2 Mode Switch' 1"
++	cset "name='RX HPH Mode' CLS_AB_HIFI"
+ ]
+-- 
+2.53.0
+

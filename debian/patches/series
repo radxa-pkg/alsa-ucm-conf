@@ -2,3 +2,5 @@ radxa/0001-remove-exec-bit.patch
 radxa/0003-ucm2-Qualcomm-qcs6490-Add-DMI-match-for-Radxa-Dragon.patch
 radxa/0004-ucm2-Qualcomm-add-Radxa-Dragon-Q8B.patch
 radxa/0005-ucm2-Qualcomm-add-Radxa-CM-Q64.patch
+radxa/0006-ucm2-codecs-wcd938x-change-CLS_AB_LOHIFI-to-CLS_AB_H.patch
+radxa/0007-ucm2-Qualcomm-radxa-dragon-q8b-Use-the-CLS_AB_HIFI-w.patch
