@@ -1,0 +1,27 @@
+From 3954579eea6cdc6777017cc6aa667b416cf8eb86 Mon Sep 17 00:00:00 2001
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 21 Jul 2026 16:55:40 +0800
+Subject: [PATCH] ucm2: Qualcomm: radxa-dragon-q8b: Use the CLS_AB_HIFI wcd938x
+ sequence
+
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
+index c0a3d15..364788c 100644
+--- a/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/Dragon-Q8B-HiFi.conf
+@@ -96,7 +96,7 @@ SectionDevice."HDMI2" {
+ SectionDevice."Headphones" {
+ 	Comment "Headphones playback"
+ 
+-	Include.wcdhpe.File "/codecs/wcd938x/HeadphoneEnableSeq.conf"
++	Include.wcdhpe.File "/codecs/wcd938x/HeadphoneABEnableSeq.conf"
+ 	Include.wcdhpd.File "/codecs/wcd938x/HeadphoneDisableSeq.conf"
+ 	Include.rxmhpe.File "/codecs/qcom-lpass/rx-macro/HeadphoneEnableSeq.conf"
+ 	Include.rxmhpd.File "/codecs/qcom-lpass/rx-macro/HeadphoneDisableSeq.conf"
+-- 
+2.53.0
+
