@@ -1,0 +1,78 @@
+From abcdefabcdefabcdefabcdefabcdefabcdefabcd Mon Sep 17 00:00:00 2001
+From: Stephen Chen <stephen@radxa.com>
+Date: Tue, 01 Sep 2026 12:00:00 +0800
+Subject: [PATCH] ucm2: Qualcomm: add Radxa DragonBay 4 Pro
+
+Signed-off-by: Stephen Chen <stephen@radxa.com>
+
+diff --git a/src/ucm2/Qualcomm/sc8280xp/DragonBay-4-Pro-HiFi.conf b/src/ucm2/Qualcomm/sc8280xp/DragonBay-4-Pro-HiFi.conf
+new file mode 100644
+index 0000000..eb1cf6b
+--- /dev/null
++++ b/src/ucm2/Qualcomm/sc8280xp/DragonBay-4-Pro-HiFi.conf
+@@ -0,0 +1,31 @@
++SectionVerb {
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++	]
++
++	Value {
++		TQ "HiFi"
++	}
++}
++
++SectionDevice."HDMI0" {
++	Comment "Type-C / DisplayPort 0 playback"
++
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
++	]
++
++	DisableSequence [
++		# Keep DP routes up while the HiFi verb is active.
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},0"
++		JackControl "DP0 Jack"
++	}
++}
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf b/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf
+new file mode 100644
+index 0000000..16ef597
+--- /dev/null
++++ b/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf
+@@ -0,0 +1,9 @@
++Syntax 4
++
++SectionUseCase."HiFi" {
++	File "/Qualcomm/sc8280xp/DragonBay-4-Pro-HiFi.conf"
++	Comment "HiFi quality Music."
++}
++
++Include.card-init.File "/lib/card-init.conf"
++Include.ctl-remap.File "/lib/ctl-remap.conf"
+diff --git a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+index e5f7555..1547b12 100644
+--- a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+@@ -19,3 +19,12 @@ If.RADXA_DRAGON_Q8B {
+ 	}
+ 	True.Include.radxaq8b.File "/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf"
+ }
++
++If.RADXA_DRAGONBAY_4_PRO {
++	Condition {
++		Type RegexMatch
++		String "${var:DMI_info}"
++		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa DragonBay 4 Pro$"
++	}
++	True.Include.radxadb.File "/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf"
++}
+-- 
+2.34.1
