@@ -1,0 +1,133 @@
+From abcdefabcdefabcdefabcdefabcdefabcdefabcd Mon Sep 17 00:00:00 2001
+From: Stephen Chen <stephen@radxa.com>
+Date: Wed, 09 Sep 2026 12:00:00 +0800
+Subject: [PATCH] ucm2: Qualcomm: add Radxa DragonStation 6
+
+Signed-off-by: Stephen Chen <stephen@radxa.com>
+
+diff --git a/src/ucm2/Qualcomm/sc8280xp/DragonStation-6-HiFi.conf b/src/ucm2/Qualcomm/sc8280xp/DragonStation-6-HiFi.conf
+new file mode 100644
+index 0000000..47d1f0a
+--- /dev/null
++++ b/src/ucm2/Qualcomm/sc8280xp/DragonStation-6-HiFi.conf
+@@ -0,0 +1,86 @@
++SectionVerb {
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia2' 1"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia3' 1"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 0"
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia2' 0"
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia3' 0"
++	]
++
++	Value {
++		TQ "HiFi"
++	}
++}
++
++SectionDevice."HDMI0" {
++	Comment "Type-C / DisplayPort 0 playback"
++
++	ConflictingDevice [
++		"HDMI1"
++		"HDMI2"
++	]
++
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' 1"
++	]
++
++	DisableSequence [
++		# Keep DP routes up while the HiFi verb is active.
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},0"
++		JackControl "DP0 Jack"
++	}
++}
++
++SectionDevice."HDMI1" {
++	Comment "Type-C / DisplayPort 1 playback"
++
++	ConflictingDevice [
++		"HDMI0"
++		"HDMI2"
++	]
++
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_1 Audio Mixer MultiMedia2' 1"
++	]
++
++	DisableSequence [
++		# Keep DP routes up while the HiFi verb is active.
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},1"
++		JackControl "DP1 Jack"
++	}
++}
++
++SectionDevice."HDMI2" {
++	Comment "HDMI playback"
++
++	ConflictingDevice [
++		"HDMI0"
++		"HDMI1"
++	]
++
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_2 Audio Mixer MultiMedia3' 1"
++	]
++
++	DisableSequence [
++		# Keep DP routes up while the HiFi verb is active.
++	]
++
++	Value {
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId},2"
++		JackControl "DP2 Jack"
++	}
++}
+diff --git a/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonStation-6.conf b/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonStation-6.conf
+new file mode 100644
+index 0000000..5071e25
+--- /dev/null
++++ b/src/ucm2/Qualcomm/sc8280xp/Radxa-DragonStation-6.conf
+@@ -0,0 +1,9 @@
++Syntax 4
++
++SectionUseCase."HiFi" {
++	File "/Qualcomm/sc8280xp/DragonStation-6-HiFi.conf"
++	Comment "HiFi quality Music."
++}
++
++Include.card-init.File "/lib/card-init.conf"
++Include.ctl-remap.File "/lib/ctl-remap.conf"
+diff --git a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+index 1547b12..0c43521 100644
+--- a/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
++++ b/src/ucm2/Qualcomm/sc8280xp/sc8280xp.conf
+@@ -28,3 +28,12 @@ If.RADXA_DRAGONBAY_4_PRO {
+ 	}
+ 	True.Include.radxadb.File "/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf"
+ }
++
++If.RADXA_DRAGONSTATION_6 {
++	Condition {
++		Type RegexMatch
++		String "${var:DMI_info}"
++		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa DragonStation 6$"
++	}
++	True.Include.radxads6.File "/Qualcomm/sc8280xp/Radxa-DragonStation-6.conf"
++}
+-- 
+2.34.1
