@@ -1,0 +1,49 @@
+From abcdefabcdefabcdefabcdefabcdefabcdefabcd Mon Sep 17 00:00:00 2001
+From: William Norman <nascs@radxa.com>
+Date: Thu, 11 Sep 2026 12:00:00 +0800
+Subject: [PATCH] ucm2: Qualcomm: add Radxa VMARC Q9075
+
+Signed-off-by: William Norman <nascs@radxa.com>
+
+diff --git a/src/ucm2/Qualcomm/sa8775p/vmarc-q9075/HiFi.conf b/src/ucm2/Qualcomm/sa8775p/vmarc-q9075/HiFi.conf
+new file mode 100644
+index 0000000..b6d1f0a
+--- /dev/null
++++ b/src/ucm2/Qualcomm/sa8775p/vmarc-q9075/HiFi.conf
+@@ -0,0 +1,22 @@
++SectionVerb {
++	EnableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia4' 1,1"
++	]
++
++	DisableSequence [
++		cset "name='DISPLAY_PORT_RX_0 Audio Mixer MultiMedia4' 0,0"
++	]
++
++	Value {
++		TQ "HiFi"
++	}
++}
++
++SectionDevice."HDMI" {
++	Comment "HDMI Digital Stereo Output"
++
++	Value {
++		PlaybackPriority 200
++		PlaybackPCM "hw:${CardId},3"
++	}
++}
+diff --git a/src/ucm2/conf.d/sa8775p/VMARC-Q9075-DP.conf b/src/ucm2/conf.d/sa8775p/VMARC-Q9075-DP.conf
+new file mode 100644
+index 0000000..16ef597
+--- /dev/null
++++ b/src/ucm2/conf.d/sa8775p/VMARC-Q9075-DP.conf
+@@ -0,0 +1,6 @@
++Syntax 4
++
++SectionUseCase."HiFi" {
++	File "/Qualcomm/sa8775p/vmarc-q9075/HiFi.conf"
++	Comment "HiFi quality music"
++}
+-- 
+2.34.1
