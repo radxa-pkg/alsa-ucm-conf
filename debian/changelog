@@ -1,3 +1,14 @@
+alsa-ucm-conf (1.2.16.1-radxa-2) noble; urgency=medium
+
+  [ Stephen Chen ]
+  * feat: Add Radxa DragonBay 4 Pro
+  * feat: Add Radxa DragonStation 6
+
+  [ William Norman ]
+  * feat: Add Radxa VMARC Q9075
+
+ -- "Radxa Computer Co., Ltd" <dev@radxa.com>  Thu, 17 Sep 2026 08:40:49 +0000
+
 alsa-ucm-conf (1.2.16.1-radxa-1) noble; urgency=medium
 
   [ "Radxa Computer Co., Ltd" ]
