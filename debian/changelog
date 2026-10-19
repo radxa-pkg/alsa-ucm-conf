@@ -1,3 +1,10 @@
+alsa-ucm-conf (1.2.16.1-radxa-4) noble; urgency=medium
+
+  [ Stephen Chen ]
+  * fix: pkg.conf.template: add qcs9075-noble-test and qcs9075-noble
+
+ -- "Radxa Computer (Shenzhen) Co., Ltd." <dev@radxa.com>  Mon, 19 Oct 2026 02:53:33 +0000
+
 alsa-ucm-conf (1.2.16.1-radxa-3) noble; urgency=medium
 
   [ Stephen Chen ]
