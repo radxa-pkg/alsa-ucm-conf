@@ -1,3 +1,10 @@
+alsa-ucm-conf (1.2.16.1-radxa-5) noble; urgency=medium
+
+  [ Songjun Li ]
+  * fix: update Radxa SMBIOS manufacturer
+
+ -- "Radxa Computer (Shenzhen) Co., Ltd." <dev@radxa.com>  Fri, 13 Nov 2026 10:59:08 +0000
+
 alsa-ucm-conf (1.2.16.1-radxa-4) noble; urgency=medium
 
   [ Stephen Chen ]
