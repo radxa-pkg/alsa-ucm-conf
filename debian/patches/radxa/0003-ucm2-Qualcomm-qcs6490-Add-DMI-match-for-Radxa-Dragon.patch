@@ -30,7 +30,7 @@ index 0000000..03cce7d
 +	Condition {
 +		Type RegexMatch
 +		String "${var:DMI_info}"
-+		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa Dragon Q6A$"
++		Regex "^Radxa Computer( \\(Shenzhen\\))? Co\\., Ltd\\.-Dragon-Radxa Dragon Q6A$"
 +	}
 +	True.Include.radxaq6a.File "/Qualcomm/qcs6490/QCS6490-Radxa-Dragon-Q6A/QCS6490-Radxa-Dragon-Q6A.conf"
 +	False.Warning "QCS6490 - ${var:DMI_info} model not supported"

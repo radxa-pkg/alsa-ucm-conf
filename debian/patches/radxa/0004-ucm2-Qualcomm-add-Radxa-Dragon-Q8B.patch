@@ -184,7 +184,7 @@ index cb37c58..648618a 100644
 +	Condition {
 +		Type RegexMatch
 +		String "${var:DMI_info}"
-+		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa Dragon Q8B$"
++		Regex "^Radxa Computer( \\(Shenzhen\\))? Co\\., Ltd\\.-Dragon-Radxa Dragon Q8B$"
 +	}
 +	True.Include.radxaq8b.File "/Qualcomm/sc8280xp/Radxa-Dragon-Q8B.conf"
  }

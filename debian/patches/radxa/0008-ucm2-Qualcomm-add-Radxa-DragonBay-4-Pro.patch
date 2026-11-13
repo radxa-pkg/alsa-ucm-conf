@@ -70,7 +70,7 @@ index e5f7555..1547b12 100644
 +	Condition {
 +		Type RegexMatch
 +		String "${var:DMI_info}"
-+		Regex "^Radxa Computer Co\\., Ltd.-Dragon-Radxa DragonBay 4 Pro$"
++		Regex "^Radxa Computer( \\(Shenzhen\\))? Co\\., Ltd\\.-Dragon-Radxa DragonBay 4 Pro$"
 +	}
 +	True.Include.radxadb.File "/Qualcomm/sc8280xp/Radxa-DragonBay-4-Pro.conf"
 +}
